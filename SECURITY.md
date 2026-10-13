@@ -23,8 +23,8 @@ but issues still exist:
 
 - **Injection of crafted input.** A malicious HTML file or a crafted template
   being rendered or executed (template injection).
-- **The Chrome invocation in `scripts/render.sh`.** It runs headless Chrome on
-  attacker-influenced local files.
+- **The Chrome invocation in `scripts/render.sh` and `scripts/render.ps1`.** They
+  run headless Chrome, Chromium, or Edge on attacker-influenced local files.
 - **The support scripts.** A path or pattern that escapes its intended scope.
 
 Please report anything you find by opening an issue. Prefer to keep it private,

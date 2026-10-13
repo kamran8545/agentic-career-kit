@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """verify_pdf.py — prove a rendered CV actually survives ATS text extraction.
 
-    scripts/verify_pdf.py <file.pdf> [--pages 2] [--expect-links 0]
+    scripts/verify_pdf.py <file.pdf> [--pages 2] [--expect-links N]
 
 Checks, in order of how badly they break an application:
 

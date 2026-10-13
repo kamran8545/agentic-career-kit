@@ -18,8 +18,9 @@ a warning for everyone.
 - **A new extraction failure mode** with a minimal reproducing HTML file.
 - **A better `verify_pdf.py` check** — especially one that catches something the
   current five checks miss.
-- **Platform support for `render.sh`.** It currently handles macOS and Linux. If
-  you make it work on Windows or in a container, send the patch.
+- **Platform support.** `render.sh` handles macOS and Linux (including WSL);
+  `render.ps1` handles native Windows. A container image, or a tested BSD path,
+  would still be welcome.
 - **A worked example in a different field.** The fictional example is a data
   engineer. A CV in, say, nursing or teaching would prove the template is not
   secretly software-shaped.
@@ -27,8 +28,8 @@ a warning for everyone.
 
 ## What is not useful
 
-- **Adding a dependency.** Three scripts, no package manager, `pypdf` only. This
-  stays a `git clone` and it works.
+- **Adding a dependency.** A handful of scripts, no package manager, `pypdf`
+  only. This stays a `git clone` and it works.
 - **A hosted version.** If you want a web app, build it — but do not turn this
   repo into one. The whole point is that it runs locally with no account.
 - **Inventing metrics guidance.** If a section suggests estimating a number you
