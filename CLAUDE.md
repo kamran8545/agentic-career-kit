@@ -4,7 +4,7 @@
 
 ## Skills
 
-The five skills live in `.opencode/skills/` and are linked at `.claude/skills/`
+The five skills live in `skills/` and are linked at `.claude/skills/`
 so Claude Code loads them automatically:
 
 - `candidate-intake` — interview a new user and build their profile, one question at a time
@@ -14,5 +14,5 @@ so Claude Code loads them automatically:
 - `ats-resume-audit` — audit a CV for ATS parseability and content
 
 If a skill does not appear under `/`, open the matching
-`.opencode/skills/<name>/SKILL.md` and follow it directly. The full project
+`skills/<name>/SKILL.md` and follow it directly. The full project
 rules are in `AGENTS.md`, imported at the top of this file.

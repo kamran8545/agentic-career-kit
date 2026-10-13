@@ -12,7 +12,7 @@ fits *this* job, in prose. Three paragraphs, under ~300 words.
 
 - The job posting (pasted text or URL — fetch the URL if you have web access).
 - The candidate's profile: `profile/candidate-profile.md`, or
-  `.opencode/context/candidate-profile.md` at the repo root.
+  `context/candidate-profile.md` at the repo root.
 - The tailored CV for the same job, if one exists — the letter must agree with it.
 
 ## Method

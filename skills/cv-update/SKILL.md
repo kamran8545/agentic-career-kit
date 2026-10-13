@@ -9,13 +9,13 @@ Turns a candidate profile into a verified, ATS-safe PDF.
 
 ## Order of operations
 
-0. **No profile yet?** If `.opencode/context/candidate-profile.md` (or
+0. **No profile yet?** If `context/candidate-profile.md` (or
    `profile/candidate-profile.md`) is missing or still full of `{{...}}`
    placeholders, run the **`candidate-intake`** skill first — it interviews the
    user one question at a time and writes the profile. Never invent a profile
    just to have something to render.
 1. **Read the source of truth first.** The candidate's profile
-   (`profile/candidate-profile.md`, or `.opencode/context/candidate-profile.md`
+   (`profile/candidate-profile.md`, or `context/candidate-profile.md`
    at the repo root) and the HTML being edited. Never edit blind.
 2. **Establish the target.** What single job title is this CV for? If the answer
    is "several", the CV is not tailored — say so and ask which one.

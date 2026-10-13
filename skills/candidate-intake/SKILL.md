@@ -11,7 +11,7 @@ there is nothing to build from.
 
 ## When this runs
 
-- There is no profile at `.opencode/context/candidate-profile.md` or
+- There is no profile at `context/candidate-profile.md` or
   `profile/candidate-profile.md`, **or**
 - the file exists but is still mostly `{{...}}` placeholders.
 
@@ -30,8 +30,8 @@ interrupted session still holds everything answered so far.
 Before the first question, create the file so its shape is already correct:
 
 ```bash
-cp .opencode/context/candidate-profile.template.md \
-   .opencode/context/candidate-profile.md
+cp context/candidate-profile.template.md \
+   context/candidate-profile.md
 ```
 
 Then fill it section by section as answers arrive. In a client workspace, write

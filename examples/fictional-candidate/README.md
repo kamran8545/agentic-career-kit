@@ -67,8 +67,8 @@ will inherit fictional numbers, and the whole point is that every number in a CV
 must be provable.
 
 ```bash
-cp .opencode/context/candidate-profile.template.md \
-   .opencode/context/candidate-profile.md
+cp context/candidate-profile.template.md \
+   context/candidate-profile.md
 ```
 
 The example deliberately sits in a different field from most software CVs, which

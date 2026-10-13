@@ -49,9 +49,9 @@ fi
 
 mkdir -p "$DEST"/{intake,profile,out/applications,report}
 
-cp "$ROOT/.opencode/context/candidate-profile.template.md" \
+cp "$ROOT/context/candidate-profile.template.md" \
    "$DEST/intake/${SLUG}-intake.md"
-cp "$ROOT/.opencode/context/candidate-profile.template.md" \
+cp "$ROOT/context/candidate-profile.template.md" \
    "$DEST/profile/candidate-profile.md"
 cp "$ROOT/templates/resume.template.html"  "$DEST/out/Master-CV.html"
 cp "$ROOT/templates/cover-letter.template.md" "$DEST/out/Master-CL.md"

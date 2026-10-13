@@ -25,7 +25,7 @@ concrete edits if the answer is yes. Not a summary of the posting.
    posting means your CV should say "REST APIs", not "API integration".
 
 4. **Compare against the profile** (`profile/candidate-profile.md`, or
-   `.opencode/context/candidate-profile.md` at the repo root).
+   `context/candidate-profile.md` at the repo root).
 
 5. **Score the fit** out of 100:
 

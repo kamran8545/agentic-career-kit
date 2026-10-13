@@ -10,7 +10,7 @@ clients/
 # Your own filled-in profile and generated CV/cover letter. Real personal data;
 # the README tells users to create these, so keep them out of version control.
 # Anchored where possible so the tracked fictional example is never affected.
-.opencode/context/candidate-profile.md
+context/candidate-profile.md
 /profile/
 /out/
 /my-profile.md
@@ -25,7 +25,7 @@ scripts/denylist.local.txt
 *.swp
 
 # Local agent settings that may hold personal data or machine paths.
-# The tracked .claude/skills and .agents/skills are symlinks and stay committed.
+# The tracked .claude/skills and .agents/skills are symlinks to skills/ and stay committed.
 .claude/settings.local.json
 .agents/settings.local.json
 

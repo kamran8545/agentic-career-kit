@@ -100,7 +100,7 @@ agent and just say:
 No profile exists yet, so the `candidate-intake` skill takes over: it asks **one
 question at a time** — your name, your target title, your contact details, how
 you'd describe yourself, each role, any gaps, your skills, your certifications —
-and writes every answer into `.opencode/context/candidate-profile.md` as it goes,
+and writes every answer into `context/candidate-profile.md` as it goes,
 so an interrupted session never loses what you already answered. Once the
 essentials are in, it hands off to build and verify the CV. You edit nothing by
 hand.
@@ -110,8 +110,8 @@ hand.
 ### 1. Fill in the profile
 
 ```bash
-cp .opencode/context/candidate-profile.template.md \
-   .opencode/context/candidate-profile.md
+cp context/candidate-profile.template.md \
+   context/candidate-profile.md
 ```
 
 Open `candidate-profile.md` in any plain-text editor (TextEdit, VS Code,
@@ -124,7 +124,7 @@ Delete any section you have no data for. Do not leave blanks.
 > about in the interview. See [docs/VERIFIED-METRICS.md](docs/VERIFIED-METRICS.md).
 
 > **Privacy:** `candidate-profile.md` contains real personal data. The paths used
-> here — `.opencode/context/candidate-profile.md`, `profile/`, and generated
+> here — `context/candidate-profile.md`, `profile/`, and generated
 > `out/` files — are already gitignored, so a filled-in profile is not committed
 > by accident. Still never commit it deliberately.
 >
@@ -139,7 +139,7 @@ The skills also recognise a profile at `profile/candidate-profile.md`.
 If you used Option A, this is already happening. Otherwise, open this folder in
 [opencode](https://opencode.ai), Claude Code, or Codex, and say:
 
-> **Build my master CV from `.opencode/context/candidate-profile.md`.**
+> **Build my master CV from `context/candidate-profile.md`.**
 
 The `cv-update` skill copies `templates/resume.template.html` to
 `out/Master-CV.html`, fills it from your profile, renders it with
@@ -173,7 +173,7 @@ application** — copy it, per the next section.
 ## The five skills
 
 Nothing here is locked inside a server. The skills are plain markdown in
-`.opencode/skills/` — read them, edit them, delete the ones you do not want.
+`skills/` — read them, edit them, delete the ones you do not want.
 
 | Skill | Ask it when you want to… | Typical prompt |
 | --- | --- | --- |
@@ -215,7 +215,7 @@ nothing to keep in sync.
 
 | Tool | How it picks up the workflow |
 | --- | --- |
-| **opencode** | Reads `AGENTS.md`; skills auto-load from `.opencode/skills/` |
+| **opencode** | Reads `AGENTS.md`; skills auto-load from `.agents/skills/` |
 | **Claude Code** | Reads `CLAUDE.md`, which imports `AGENTS.md`; skills at `.claude/skills/` |
 | **Cursor** | Reads `AGENTS.md` natively; skills from `.agents/skills/` or `.claude/skills/` |
 | **Google Antigravity** | Reads `AGENTS.md` natively; skills from `.agents/skills/` |
@@ -226,7 +226,7 @@ nothing to keep in sync.
 | **Aider** | Add `read: [AGENTS.md]` to `.aider.conf.yml` |
 
 If a tool does not auto-load the skills, point it at
-`.opencode/skills/<name>/SKILL.md` — the files are plain markdown and work
+`skills/<name>/SKILL.md` — the files are plain markdown and work
 anywhere.
 
 ---
@@ -366,11 +366,11 @@ No package manager, no build step, no lockfile. `pypdf` is the only dependency.
 ## Layout
 
 ```
-.opencode/
-  context/candidate-profile.template.md   the form you fill in
-  skills/                                 five skills: intake, analyse, update, write, audit
-.claude/skills                            → linked to .opencode/skills for Claude/Cursor
-.agents/skills                            → linked to .opencode/skills for Antigravity/Codex
+skills/                                   five skills: intake, analyse, update, write, audit
+context/
+  candidate-profile.template.md           the form you fill in
+.claude/skills                            → linked to skills/ for Claude Code
+.agents/skills                            → linked to skills/ for opencode/Cursor/Antigravity/Codex
 CLAUDE.md                                 Claude Code entry point (imports AGENTS.md)
 AGENTS.md                                 cross-tool instructions (read by most agents)
 templates/

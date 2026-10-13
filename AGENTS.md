@@ -19,9 +19,9 @@ Everything below exists to serve that.
 
 | Path | Role |
 | ---- | ---- |
-| `.opencode/context/candidate-profile.template.md` | The intake form a user fills in. Source of all candidate data. |
-| `.opencode/skills/` | Five skills: `candidate-intake`, `job-posting-analysis`, `cv-update`, `cover-letter-writer`, `ats-resume-audit`. Plain markdown. Canonical copy. |
-| `.claude/skills/`, `.agents/skills/` | Symlinks to `.opencode/skills/` so Claude Code, Cursor, Antigravity, and Codex auto-load the same files. Never edit these directly. |
+| `context/candidate-profile.template.md` | The intake form a user fills in. Source of all candidate data. |
+| `skills/` | Five skills: `candidate-intake`, `job-posting-analysis`, `cv-update`, `cover-letter-writer`, `ats-resume-audit`. Plain markdown. Canonical copy. |
+| `.claude/skills/`, `.agents/skills/` | Symlinks to `skills/` so opencode, Claude Code, Cursor, Antigravity, and Codex auto-load the same files. Never edit these directly. |
 | `CLAUDE.md` | Claude Code entry point; imports `AGENTS.md`. |
 | `AGENTS.md` | This file. Read natively by most agents (opencode, Cursor, Codex, Copilot, Antigravity, Cline, Roo, Kilo, Amp). |
 | `templates/resume.template.html` | ATS-safe CV template. **CSS is load-bearing.** |
@@ -88,7 +88,7 @@ The conversational path — a user with nothing filled in yet:
 > `candidate-intake` skill checks for a profile, finds none, and asks one question
 > at a time (name → target title → contact → self-description → each role → gaps →
 > skills → certifications → …), writing each answer into
-> `.opencode/context/candidate-profile.md` as it goes. Once the essentials are in,
+> `context/candidate-profile.md` as it goes. Once the essentials are in,
 > it hands off to `cv-update`, which renders and verifies.
 
 The manual path, for a known candidate:

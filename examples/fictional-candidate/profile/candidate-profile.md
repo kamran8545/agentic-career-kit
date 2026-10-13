@@ -2,7 +2,7 @@
 
 > **This is a worked example, not a real person.** Every company, name, and
 > figure below is invented to demonstrate the format. Copy this file to start
-> your own — the instructions in `.opencode/context/candidate-profile.template.md`
+> your own — the instructions in `context/candidate-profile.template.md`
 > explain each field.
 
 ## Identity & Contact
