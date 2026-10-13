@@ -27,7 +27,9 @@ Everything below exists to serve that.
 | `templates/resume.template.html` | ATS-safe CV template. **CSS is load-bearing.** |
 | `templates/cover-letter.template.md` | Three-paragraph letter skeleton. |
 | `templates/cover-letter.template.html` | One-page A4 wrapper to render the letter to a verified PDF. |
-| `scripts/render.sh` | HTML → PDF via headless Chrome, macOS + Linux. |
+| `scripts/render.sh` | HTML → PDF via headless Chrome, macOS + Linux (incl. WSL). |
+| `scripts/render.ps1` | HTML → PDF on native Windows (PowerShell). Same flags as `render.sh`. |
+| `scripts/check-setup.sh` | Reports missing browser / Python / `pypdf`, with the fix for each OS. |
 | `scripts/verify_pdf.py` | Five extraction checks. pypdf is the only dependency. |
 | `scripts/new-client.sh` | Scaffolds `clients/<Name>-<date>/`. |
 | `scripts/pre-publish-check.sh` | Blocks publishing leaked PII, secrets, or tracked binaries. |

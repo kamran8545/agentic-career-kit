@@ -11,6 +11,27 @@
 
 set -euo pipefail
 
+# Native Windows shells (Git Bash / MSYS / Cygwin) are not supported: path and
+# file:// handling differ enough that Chrome silently writes nothing. Send the
+# user somewhere that works instead of failing cryptically.
+case "$(uname -s 2>/dev/null || echo unknown)" in
+  MINGW*|MSYS*|CYGWIN*)
+    cat >&2 <<'MSG'
+error: native Windows shell detected (Git Bash / MSYS / Cygwin). render.sh needs a
+       POSIX shell and does not support this directly.
+
+  Pick one:
+    1) Native Windows — render with PowerShell:
+         powershell -ExecutionPolicy Bypass -File scripts\render.ps1 <input.html> <output.pdf>
+    2) Recommended — use WSL, then run this same script inside WSL:
+         https://learn.microsoft.com/windows/wsl/install
+
+  After rendering (either way), verify with:
+         python scripts/verify_pdf.py <output.pdf> --pages 2
+MSG
+    exit 69 ;;
+esac
+
 if [ $# -ne 2 ]; then
   echo "usage: $0 <input.html> <output.pdf>" >&2
   exit 64
@@ -57,7 +78,10 @@ error: no Chrome or Chromium found.
 
   macOS   install Google Chrome, OR
   Linux   sudo apt install chromium-browser
+  Windows install Google Chrome, then use PowerShell: scripts\render.ps1 <in> <out>
   other   set CHROME_BIN=/path/to/chrome and re-run
+
+  Diagnose everything at once:  scripts/check-setup.sh
 MSG
   exit 69
 }

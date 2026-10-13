@@ -25,7 +25,12 @@ import sys
 try:
     from pypdf import PdfReader
 except ImportError:
-    sys.exit("error: pypdf is required.  pip install pypdf")
+    sys.exit(
+        "error: pypdf is required to verify a PDF, but it is not installed.\n"
+        "  macOS/Linux/WSL:  python3 -m pip install pypdf\n"
+        "  Windows:          py -m pip install pypdf\n"
+        "  diagnose setup:   scripts/check-setup.sh"
+    )
 
 LIGATURES = {
     "\ufb00": "ff", "\ufb01": "fi", "\ufb02": "fl", "\ufb03": "ffi",

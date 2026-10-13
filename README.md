@@ -19,6 +19,11 @@ scripts/verify_pdf.py /tmp/example.pdf --pages 2      # must print PASS
 If that last command prints `PASS`, your machine can run the whole pipeline.
 If it does not, jump to [Troubleshooting](#troubleshooting).
 
+Not sure your machine is ready, or something failed? **On macOS/Linux/WSL, run
+`scripts/check-setup.sh` first** — it reports exactly what is missing (browser,
+Python, `pypdf`) and the command to install it. On Windows, see
+[Windows](#windows).
+
 ---
 
 ## Why this exists
@@ -299,7 +304,9 @@ leave it.
 
 | Command | What it does |
 | --- | --- |
-| `scripts/render.sh in.html out.pdf` | HTML → PDF via headless Chrome. macOS and Linux. |
+| `scripts/check-setup.sh` | Reports whether browser, Python, and `pypdf` are installed — with the fix for any that are missing |
+| `scripts/render.sh in.html out.pdf` | HTML → PDF via headless Chrome. macOS and Linux (incl. WSL). |
+| `scripts/render.ps1 in.html out.pdf` | HTML → PDF on native Windows (PowerShell). Same Chrome flags as `render.sh`. |
 | `scripts/verify_pdf.py out.pdf --pages 2` | Proves the PDF survives text extraction. **Run this every time.** |
 | `scripts/new-client.sh "Name" [YYYY-MM-DD]` | Scaffolds a per-person workspace so nothing gets mixed up |
 | `scripts/pre-publish-check.sh` | Blocks publishing leaked PII, secrets, or tracked binaries *(if you are hacking on this repo)* |
@@ -338,7 +345,7 @@ this project exists.
 
 ## Requirements
 
-- **Chrome or Chromium** — macOS: install Google Chrome. Linux: `apt install chromium-browser`.
+- **Chrome, Chromium, or Edge** — macOS: install Google Chrome. Linux: `apt install chromium-browser`.
 - **Python 3.9+** with `pypdf` — `pip install pypdf`
 - **An AI coding agent** — [opencode](https://opencode.ai) (free), Claude Code,
   Cursor, Google Antigravity, Codex, or any other. See
@@ -346,21 +353,61 @@ this project exists.
 
 No package manager, no build step, no lockfile. `pypdf` is the only dependency.
 
+Check all of it in one command (macOS / Linux / WSL):
+
+```bash
+scripts/check-setup.sh
+```
+
+It prints `ok` or `MISSING` for each requirement, with the exact fix for your OS,
+and exits non-zero if anything is missing.
+
+---
+
+## Windows
+
+Windows works, with one extra step. There are two supported paths.
+
+**Option 1 — WSL (recommended).** The whole kit, and most AI coding agents, are
+happiest in a Linux shell. [Install WSL](https://learn.microsoft.com/windows/wsl/install),
+install Chrome or Chromium inside it, then clone the repo into the WSL filesystem
+(under `~/`, not `/mnt/c/`) and run everything exactly as documented —
+`scripts/render.sh`, `scripts/verify_pdf.py`, `scripts/check-setup.sh`,
+`scripts/new-client.sh` all work there.
+
+**Option 2 — native Windows (PowerShell).** If you would rather not use WSL, render
+with the PowerShell script, which passes the same Chrome flags as the bash one:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\render.ps1 in.html out.pdf
+python scripts\verify_pdf.py out.pdf --pages 2
+```
+
+`scripts/render.ps1` finds Chrome, Chromium, or Edge automatically; set
+`$env:CHROME_BIN` to point at a specific binary if yours is somewhere unusual.
+Everything that is not a shell script — `verify_pdf.py`, the templates, the
+skills, `AGENTS.md` — works natively on Windows.
+
+> **What will not work natively:** `render.sh`, `check-setup.sh`, and
+> `new-client.sh` are bash scripts. Under Git Bash the renderer detects this and
+> tells you to use PowerShell or WSL rather than failing silently.
+
 ---
 
 ## Troubleshooting
 
 | Symptom | Cause and fix |
 | --- | --- |
-| `error: no Chrome or Chromium found` | Install Google Chrome, or point at your binary: `CHROME_BIN=/path/to/chrome scripts/render.sh …` |
-| `error: pypdf is required` | `pip install pypdf` |
+| Not sure your machine is ready, or something fails oddly | Run `scripts/check-setup.sh` — it names what is missing and the command to install it. |
+| `error: no Chrome or Chromium found` | Install Chrome, Chromium, or Edge, or point at your binary: `CHROME_BIN=/path/to/chrome scripts/render.sh …`. On Windows use `scripts\render.ps1` or WSL — see [Windows](#windows). |
+| `error: pypdf is required …` | Install it: `python3 -m pip install pypdf` (macOS/Linux/WSL) or `py -m pip install pypdf` (Windows). |
 | `FAIL ligature corruption` | The CSS `font-variant-ligatures: none` / `font-feature-settings` block was edited or removed. Restore it byte-for-byte. |
 | `FAIL unfilled placeholders` | A `{{...}}` shipped. Replace it or delete the element containing it. |
 | `FAIL page count` | Content runs long or short. Cut a whole section — never shrink the font below 10pt. |
 | `WARN`/`FAIL link annotations` | Links are plain text (reported as a warning by default). Make them real `<a href>` elements, and pass `--expect-links N` to make a wrong count a hard failure. |
 | `FAIL page N extracts only … chars` | The layout collapsed — most often a multi-column layout. Use a single column. |
 | Nothing renders, Chrome writes no output | Check the input path and that the output directory is writable. `render.sh` prints the resolved absolute path on success. |
-| On Windows | `render.sh` supports macOS and Linux only. Use WSL, or call Chrome yourself with `--headless --no-pdf-header-footer --print-to-pdf=…`. |
+| On Windows | Use WSL (recommended) or the native `scripts\render.ps1`, which passes the same flags. See [Windows](#windows). |
 
 ---
 
@@ -379,7 +426,9 @@ templates/
   cover-letter.template.md                cover letter skeleton
   cover-letter.template.html              one-page A4 wrapper to render the letter to PDF
 scripts/
-  render.sh                               HTML → PDF via headless Chrome
+  render.sh                               HTML → PDF via headless Chrome (macOS/Linux/WSL)
+  render.ps1                              HTML → PDF on native Windows (PowerShell)
+  check-setup.sh                          report missing browser/Python/pypdf, with fixes
   verify_pdf.py                           the five extraction checks. pypdf only dependency
   new-client.sh                           scaffold a per-person workspace
   pre-publish-check.sh                    leak/PII gate before pushing
