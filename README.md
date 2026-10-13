@@ -312,7 +312,7 @@ breaks an application:
 | 1 | **Ligatures** — U+FB00–FB06 glyphs | `fi`/`fl`/`ff` were fused into one character. Fix the CSS block, don't touch the text. |
 | 2 | **Placeholders** — `{{...}}` or `[Title Case]` | Something was never filled in. Replace it or delete the element containing it. |
 | 3 | **Page count** | Wrong length for the layout — content is truncated or overflowing. |
-| 4 | **Link annotations** | Your `<a href>` links did not survive; you used plain-text URLs. |
+| 4 | **Link annotations** | Your `<a href>` links did not survive; you used plain-text URLs. A warning by default, a hard failure with `--expect-links N`. |
 | 5 | **Text per page** | A page extracts to almost nothing — the layout collapsed. |
 
 Useful flags:
@@ -355,7 +355,7 @@ No package manager, no build step, no lockfile. `pypdf` is the only dependency.
 | `FAIL ligature corruption` | The CSS `font-variant-ligatures: none` / `font-feature-settings` block was edited or removed. Restore it byte-for-byte. |
 | `FAIL unfilled placeholders` | A `{{...}}` shipped. Replace it or delete the element containing it. |
 | `FAIL page count` | Content runs long or short. Cut a whole section — never shrink the font below 10pt. |
-| `FAIL link annotations` | Your links are plain text. Make them real `<a href>` elements. |
+| `WARN`/`FAIL link annotations` | Links are plain text (reported as a warning by default). Make them real `<a href>` elements, and pass `--expect-links N` to make a wrong count a hard failure. |
 | `FAIL page N extracts only … chars` | The layout collapsed — most often a multi-column layout. Use a single column. |
 | Nothing renders, Chrome writes no output | Check the input path and that the output directory is writable. `render.sh` prints the resolved absolute path on success. |
 | On Windows | `render.sh` supports macOS and Linux only. Use WSL, or call Chrome yourself with `--headless --no-pdf-header-footer --print-to-pdf=…`. |
