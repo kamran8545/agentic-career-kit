@@ -1,6 +1,6 @@
 ---
 name: cv-update
-description: Build, edit, or regenerate a CV/resume as an ATS-safe PDF from a candidate profile and a job posting. Use when the user says "update my CV", "update my resume", "add a new job to my CV", "regenerate the PDF", "build my resume", "make my CV", "tailor my CV to this job", "fill the placeholders", or wants a new application-ready resume. Copies templates/resume.template.html, fills it from the candidate profile in the posting's language, renders with scripts/render.sh, and verifies with scripts/verify_pdf.py.
+description: Build, edit, or regenerate a CV/resume as an ATS-safe PDF from a candidate profile and a job posting. Use when the user says "update my CV", "update my resume", "add a new job to my CV", "regenerate the PDF", "build my resume", "make my CV", "tailor my CV to this job", "fill the placeholders", or wants a new application-ready resume. Copies templates/resume.template.html, fills it from the candidate profile in the posting's language, renders with scripts/render.sh, and verifies with scripts/verify_pdf.py. A filled candidate profile must already exist — if it does not, run the candidate-intake skill first.
 ---
 
 # CV Update
@@ -9,6 +9,11 @@ Turns a candidate profile into a verified, ATS-safe PDF.
 
 ## Order of operations
 
+0. **No profile yet?** If `.opencode/context/candidate-profile.md` (or
+   `profile/candidate-profile.md`) is missing or still full of `{{...}}`
+   placeholders, run the **`candidate-intake`** skill first — it interviews the
+   user one question at a time and writes the profile. Never invent a profile
+   just to have something to render.
 1. **Read the source of truth first.** The candidate's profile
    (`profile/candidate-profile.md`, or `.opencode/context/candidate-profile.md`
    at the repo root) and the HTML being edited. Never edit blind.

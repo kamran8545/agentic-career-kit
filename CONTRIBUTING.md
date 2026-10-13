@@ -66,7 +66,7 @@ is gitignored.
 
 ## Style
 
-- Match the surrounding file. The four skills are instructional prose, not code.
+- Match the surrounding file. The five skills are instructional prose, not code.
 - Comments explain *why* something is unusual, because most of it is. A reader
   will otherwise "clean up" the ligature rules and break extraction.
 - No framework, no build step, no bundler.

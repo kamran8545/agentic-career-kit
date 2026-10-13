@@ -20,7 +20,7 @@ Everything below exists to serve that.
 | Path | Role |
 | ---- | ---- |
 | `.opencode/context/candidate-profile.template.md` | The intake form a user fills in. Source of all candidate data. |
-| `.opencode/skills/` | Four skills: `job-posting-analysis`, `cv-update`, `cover-letter-writer`, `ats-resume-audit`. Plain markdown. Canonical copy. |
+| `.opencode/skills/` | Five skills: `candidate-intake`, `job-posting-analysis`, `cv-update`, `cover-letter-writer`, `ats-resume-audit`. Plain markdown. Canonical copy. |
 | `.claude/skills/`, `.agents/skills/` | Symlinks to `.opencode/skills/` so Claude Code, Cursor, Antigravity, and Codex auto-load the same files. Never edit these directly. |
 | `CLAUDE.md` | Claude Code entry point; imports `AGENTS.md`. |
 | `AGENTS.md` | This file. Read natively by most agents (opencode, Cursor, Codex, Copilot, Antigravity, Cline, Roo, Kilo, Amp). |
@@ -82,12 +82,24 @@ looks correct and the ATS cannot read it.
 
 ## Workflow for a candidate
 
+The conversational path — a user with nothing filled in yet:
+
+> User opens the repo in their agent and types **"build my resume."** The
+> `candidate-intake` skill checks for a profile, finds none, and asks one question
+> at a time (name → target title → contact → each role → skills → …), writing
+> each answer into `.opencode/context/candidate-profile.md` as it goes. Once the
+> essentials are in, it hands off to `cv-update`, which renders and verifies.
+
+The manual path, for a known candidate:
+
 ```bash
 scripts/new-client.sh "Ahmad R"        # scaffold workspace
 # candidate returns the filled intake → copy to profile/candidate-profile.md
 scripts/render.sh   out/Master-CV.html out/Master-CV.pdf
 scripts/verify_pdf.py out/Master-CV.pdf --pages 2
 ```
+
+Either way: never invent a profile or a metric to have something to render.
 
 Per job, copy the master to
 `out/applications/<Company>-<role>-<YYYY-MM-DD>-CV.html`, tailor the copy only,

@@ -47,12 +47,13 @@ proof is the deliverable.
 
 ```
 candidate-profile.md  ──►  resume.template.html  ──►  Master-CV.html
-   (you fill this in)         (the agent fills it)          │
-                                                            ▼
-                    scripts/render.sh ──► PDF ──► scripts/verify_pdf.py ──► PASS
+  (you fill it in —           (the agent fills it)          │
+   or the agent interviews                                  ▼
+   you and fills it)  scripts/render.sh ──► PDF ──► scripts/verify_pdf.py ──► PASS
 ```
 
-1. You fill in one markdown file: your profile.
+1. You fill in one markdown file: your profile — by hand, or by answering the
+   agent's questions.
 2. An AI agent reads it and fills `templates/resume.template.html`.
 3. `scripts/render.sh` turns the HTML into a PDF via headless Chrome.
 4. `scripts/verify_pdf.py` extracts the text back out and proves it survived.
@@ -89,6 +90,22 @@ template. See [Troubleshooting](#troubleshooting).
 
 ## Step by step: your own CV
 
+There are two ways in. Pick one.
+
+**Option A — let the agent interview you (easiest).** Open this folder in your
+agent and just say:
+
+> **Build my resume.**
+
+No profile exists yet, so the `candidate-intake` skill takes over: it asks **one
+question at a time** — your name, your target title, your contact details, then
+each role — and writes every answer into `.opencode/context/candidate-profile.md`
+as it goes, so an interrupted session never loses what you already answered. Once
+the essentials are in, it hands off to build and verify the CV. You edit nothing
+by hand.
+
+**Option B — fill the profile yourself.**
+
 ### 1. Fill in the profile
 
 ```bash
@@ -118,8 +135,8 @@ The skills also recognise a profile at `profile/candidate-profile.md`.
 
 ### 2. Ask your agent to build the master CV
 
-Open this folder in [opencode](https://opencode.ai), Claude Code, or Codex, and
-say:
+If you used Option A, this is already happening. Otherwise, open this folder in
+[opencode](https://opencode.ai), Claude Code, or Codex, and say:
 
 > **Build my master CV from `.opencode/context/candidate-profile.md`.**
 
@@ -152,13 +169,14 @@ application** — copy it, per the next section.
 
 ---
 
-## The four skills
+## The five skills
 
 Nothing here is locked inside a server. The skills are plain markdown in
 `.opencode/skills/` — read them, edit them, delete the ones you do not want.
 
 | Skill | Ask it when you want to… | Typical prompt |
 | --- | --- | --- |
+| `candidate-intake` | Build a profile from scratch by answering questions | *"Build my resume."* |
 | `job-posting-analysis` | Decide whether to apply, and see the exact keyword gaps | *"Analyse this job posting against my profile."* |
 | `cv-update` | Build or tailor a CV | *"Tailor my CV to this job posting."* |
 | `cover-letter-writer` | Write the matching letter | *"Write a cover letter for this role."* |
@@ -166,6 +184,10 @@ Nothing here is locked inside a server. The skills are plain markdown in
 
 What each one actually does:
 
+- **`candidate-intake`** — when there is no profile yet, asks one question at a
+  time (name → target title → contact → each role → skills → …), writes each
+  answer into `candidate-profile.md` immediately, and never invents a number.
+  Hands off to `cv-update` once the essentials are in.
 - **`job-posting-analysis`** — separates must-haves from nice-to-haves, extracts
   the posting's exact keywords, compares them against your profile, and returns a
   fit score out of 100 with the specific keyword gaps and honest gaps. A clear
@@ -186,7 +208,7 @@ What each one actually does:
 
 The tool is just scripts — any agent that can run a shell command can build a
 CV. The instructions are written once in [`AGENTS.md`](AGENTS.md), which most
-agents read natively, and the four skills are plain `SKILL.md` files. They are
+agents read natively, and the five skills are plain `SKILL.md` files. They are
 linked into the paths each tool expects, so there is one source of truth and
 nothing to keep in sync.
 
@@ -345,7 +367,7 @@ No package manager, no build step, no lockfile. `pypdf` is the only dependency.
 ```
 .opencode/
   context/candidate-profile.template.md   the form you fill in
-  skills/                                 four skills: audit, update, analyse, write
+  skills/                                 five skills: intake, analyse, update, write, audit
 .claude/skills                            → linked to .opencode/skills for Claude/Cursor
 .agents/skills                            → linked to .opencode/skills for Antigravity/Codex
 CLAUDE.md                                 Claude Code entry point (imports AGENTS.md)

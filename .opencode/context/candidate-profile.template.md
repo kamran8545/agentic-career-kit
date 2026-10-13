@@ -1,6 +1,11 @@
 # Candidate Profile — {{FULL NAME}}
 
 > **HOW TO USE THIS FILE**
+> **Easiest:** don't fill this in by hand. Open the repo in your AI agent and type
+> **"Build my resume."** It will ask you these same questions one at a time and
+> write the answers here for you.
+>
+> Or do it yourself:
 > 1. Copy this file and rename it `candidate-profile.md`.
 > 2. Open it in any text editor (TextEdit, VS Code, Notepad — not Word).
 > 3. Replace every `{{LIKE THIS}}` with your real information.
