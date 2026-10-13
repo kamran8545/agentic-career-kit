@@ -24,8 +24,8 @@ Expected output:
 ```
 file    /tmp/example.pdf
 pages   2
-chars   3000
-links   6
+chars   3205
+links   7
 
 PASS  all checks clean — safe to send.
 ```
@@ -38,10 +38,10 @@ template.
 **2 pages** — the default layout. Page 1 carries the header, summary, skills and
 the two most recent roles; page 2 the rest.
 
-**6 links** — two contact links (phone, email), two profile links (LinkedIn,
-GitHub), two project links. All are real `<a href>` elements, which is why they
-survive as clickable PDF annotations. A CV with a projects section and zero link
-annotations means the anchors were lost.
+**7 links** — two contact links (phone, email), two profile links (LinkedIn,
+GitHub), two project links, and one publication link. All are real `<a href>`
+elements, which is why they survive as clickable PDF annotations. A CV with a
+projects section and zero link annotations means the anchors were lost.
 
 **0 ligatures, 0 placeholders** — the two silent failures. Both are invisible on
 screen and fatal to an application. See `docs/ATS-EXTRACTION.md`.

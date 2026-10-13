@@ -2,7 +2,8 @@
 
 > **HOW TO USE THIS FILE**
 > **Easiest:** don't fill this in by hand. Open the repo in your AI agent and type
-> **"Build my resume."** It will ask you these same questions one at a time and
+> **"Build my resume."** It will ask you these same questions one at a time —
+> including how you'd describe yourself, any gaps, and your certifications — and
 > write the answers here for you.
 >
 > Or do it yourself:
@@ -25,6 +26,7 @@
 | ----- | ----- |
 | Full name | {{FULL NAME}} |
 | Target title | {{THE ONE JOB TITLE YOU ARE APPLYING FOR}} |
+| Years of experience | {{N — the number that leads your summary}} |
 | Phone | {{+COUNTRY CODE NUMBER}} |
 | Email | {{EMAIL}} |
 | LinkedIn | https://www.linkedin.com/in/{{HANDLE}} |
@@ -57,6 +59,14 @@ shipped or led}}.
 - **Numbers:**
 - **Tech you used:**
 
+## Employment Gaps
+
+<!-- Only if there is a gap the CV must account for. One honest line per gap —
+     never invent a role to cover it. Delete this section if your timeline is
+     continuous. -->
+
+- {{Mon YYYY – Mon YYYY}}: {{honest one-line explanation, e.g. "career break for family" or "full-time study"}}
+
 ## Technical Skills
 
 <!-- Group them however makes sense for your field. These get sorted into the
@@ -83,6 +93,20 @@ shipped or led}}.
 ## Languages
 
 - {{LANGUAGE}} ({{Proficiency}})
+
+## Certifications & Awards
+
+<!-- Optional. Delete this section if you have none. Keep the credential name and
+     issuer; add the year only if you have it. -->
+
+- {{CERTIFICATION OR AWARD}} — {{Issuer}} — {{YYYY}}
+
+## Publications
+
+<!-- Optional. Delete this section if you have none. Real links survive as
+     clickable PDF annotations, like project links. -->
+
+- {{TITLE}} — {{VENUE / PUBLICATION}} — {{YYYY}} — {{URL}}
 
 ---
 

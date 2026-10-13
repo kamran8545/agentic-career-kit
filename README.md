@@ -77,8 +77,8 @@ Expected output:
 ```
 file    /tmp/example.pdf
 pages   2
-chars   3000
-links   6
+chars   3205
+links   7
 
 PASS  all checks clean — safe to send.
 ```
@@ -98,11 +98,12 @@ agent and just say:
 > **Build my resume.**
 
 No profile exists yet, so the `candidate-intake` skill takes over: it asks **one
-question at a time** — your name, your target title, your contact details, then
-each role — and writes every answer into `.opencode/context/candidate-profile.md`
-as it goes, so an interrupted session never loses what you already answered. Once
-the essentials are in, it hands off to build and verify the CV. You edit nothing
-by hand.
+question at a time** — your name, your target title, your contact details, how
+you'd describe yourself, each role, any gaps, your skills, your certifications —
+and writes every answer into `.opencode/context/candidate-profile.md` as it goes,
+so an interrupted session never loses what you already answered. Once the
+essentials are in, it hands off to build and verify the CV. You edit nothing by
+hand.
 
 **Option B — fill the profile yourself.**
 
@@ -318,7 +319,7 @@ breaks an application:
 Useful flags:
 
 ```bash
-scripts/verify_pdf.py out.pdf --pages 2 --expect-links 6 --min-chars-per-page 200
+scripts/verify_pdf.py out.pdf --pages 2 --expect-links 7 --min-chars-per-page 200
 ```
 
 Exit code `0` is clean, `1` is one or more failures, so it drops straight into CI.

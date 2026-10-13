@@ -126,10 +126,16 @@
       <a href="tel:{{+COUNTRY CODE NUMBER}}">{{+COUNTRY CODE NUMBER}}</a><span class="sep">|</span>
       <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
     </div>
+    <!-- Keep only the links the candidate actually has. If there is no GitHub,
+         delete the GitHub span and its separator; if no LinkedIn, delete that one. -->
     <div class="contact">
       LinkedIn: <a href="https://linkedin.com/in/{{HANDLE}}">linkedin.com/in/{{HANDLE}}</a><span class="sep">|</span>
       GitHub: <a href="https://github.com/{{HANDLE}}">github.com/{{HANDLE}}</a>
     </div>
+    <!-- OPTIONAL — delete this whole line if the candidate does not want a location. -->
+    <div class="contact">{{CITY, COUNTRY}}</div>
+    <!-- OPTIONAL — delete this whole line if there is no portfolio. -->
+    <div class="contact">Portfolio: <a href="{{PORTFOLIO URL}}">{{PORTFOLIO LABEL}}</a></div>
   </header>
 
   <section>
@@ -223,6 +229,23 @@
     <div class="languages">
       <span>{{LANGUAGE}} <span class="note">({{Proficiency}})</span></span>
       <span>{{LANGUAGE}} <span class="note">({{Proficiency}})</span></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Certifications &amp; Awards</h2>
+    <!-- OPTIONAL — delete this whole section if there is nothing to list. -->
+    <ul>
+      <li>&bull; {{CERTIFICATION OR AWARD}} — {{Issuer}} — {{YYYY}}</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Publications</h2>
+    <!-- OPTIONAL — delete this whole section if there is nothing to list.
+         Real <a href> links become clickable PDF annotations. -->
+    <div class="pub">
+      <span class="pub-title">{{TITLE}}</span>. <span class="pub-venue">{{VENUE / PUBLICATION}}</span>, {{YYYY}}. <a href="{{URL}}">{{LINK LABEL}}</a>
     </div>
   </section>
 

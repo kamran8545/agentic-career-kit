@@ -44,23 +44,36 @@ Go in this order, one question at a time. Keep each question short and plain.
 1. **Full name.**
 2. **The one job title they are targeting.** If they name several, ask which
    single one this CV is for.
-3. **Contact:** phone, email, LinkedIn, GitHub or portfolio.
-4. **Location** — ask once; many people deliberately leave it off the CV.
+3. **Master or targeted.** Is this a master CV for their whole search, or aimed at
+   one specific posting? If they have a posting, ask them to paste it — build the
+   master first (this skill), then tailor a copy per job (`cv-update`).
+4. **Years of experience** in this field — confirm the number that will lead the
+   summary. Do not infer it from dates alone.
+5. **Contact:** phone, email, LinkedIn, GitHub or portfolio.
+6. **Location** — ask once; many people deliberately leave it off the CV.
    Respect a "no".
-5. **Work history, newest first, one role at a time.** For each role ask:
+7. **A short self-description.** "In a few sentences, what do you do, and what are
+   you best at?" This becomes the professional summary. Shape it from their words;
+   never invent a claim they did not make.
+8. **Work history, newest first, one role at a time.** For each role ask:
    - company, their title, and start–end dates;
+   - whether they are still in it, or when and why it ended;
    - what they owned and built, in their own words;
    - any numbers they can prove, and how they measured them;
    - the technologies used.
    Then ask, "Was there an earlier role?" and repeat.
-6. **Technical skills**, grouped however makes sense for their field.
-7. **Projects** — optional; skip if they have nothing public to link.
-8. **Education.**
-9. **Languages.**
-10. **Anything they must NOT claim** — an NDA, a skill they only touched briefly,
+9. **Gaps.** After the roles: "Is there a gap between any of these, or a break we
+   should account for? How would you honestly describe it?" Every gap gets an
+   honest line — never an invented role.
+10. **Technical skills**, grouped however makes sense for their field.
+11. **Projects** — optional; skip if they have nothing public to link.
+12. **Education.**
+13. **Certifications, awards, or publications** — optional; skip if none.
+14. **Languages.**
+15. **Anything they must NOT claim** — an NDA, a skill they only touched briefly,
     a metric that was really the team's.
-11. **Anything else** that should shape the CV — a gap to explain honestly, tone,
-    roles to avoid.
+16. **Anything else** that should shape the CV — tone, roles to avoid, formatting
+    constraints.
 
 ## Rules during intake
 
@@ -73,8 +86,8 @@ Go in this order, one question at a time. Keep each question short and plain.
   guessed figure is discovered in the interview and costs the job.
 - **Dates** as `Mar 2021 – Present` — en dash, abbreviated month. Never
   `03/2021`.
-- **Optional fields get a skip.** Location, projects, and languages can be left
-  out; ask once, accept "skip", move on.
+- **Optional fields get a skip.** Location, projects, certifications, and
+  languages can be left out; ask once, accept "skip", move on.
 - **Do not interrogate.** If an answer is enough, take it and move on. This is a
   conversation, not a form.
 - **Record in their words.** You are capturing facts now; tailoring happens later,

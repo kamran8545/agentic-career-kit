@@ -11,10 +11,12 @@
 | ----- | ----- |
 | Full name | Alex Rivera |
 | Target title | Data Engineer |
+| Years of experience | 6 |
 | Phone | +44 20 7946 0000 |
 | Email | alex.rivera@example.com |
 | LinkedIn | https://www.linkedin.com/in/alex-rivera-example |
 | GitHub / Portfolio | https://example.com/alex-rivera |
+| Location | Bristol, United Kingdom |
 
 ## Professional Summary
 
@@ -76,6 +78,14 @@ orchestration, data quality, and the dashboards downstream teams depend on.
 
 - English (Native)
 - Spanish (Professional)
+
+## Certifications & Awards
+
+- Google Professional Data Engineer — Google Cloud — 2023
+
+## Publications
+
+- Schema contracts for reliable batch ingestion — Data Engineering Weekly — 2023 — https://example.com/publications/schema-contracts
 
 ## NEVER CLAIM
 

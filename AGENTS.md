@@ -86,9 +86,10 @@ The conversational path — a user with nothing filled in yet:
 
 > User opens the repo in their agent and types **"build my resume."** The
 > `candidate-intake` skill checks for a profile, finds none, and asks one question
-> at a time (name → target title → contact → each role → skills → …), writing
-> each answer into `.opencode/context/candidate-profile.md` as it goes. Once the
-> essentials are in, it hands off to `cv-update`, which renders and verifies.
+> at a time (name → target title → contact → self-description → each role → gaps →
+> skills → certifications → …), writing each answer into
+> `.opencode/context/candidate-profile.md` as it goes. Once the essentials are in,
+> it hands off to `cv-update`, which renders and verifies.
 
 The manual path, for a known candidate:
 
