@@ -278,11 +278,12 @@ templates:
 ```
 clients/ahmad-r-2026-10-13/
   intake/
-    ahmad-r-2026-10-13-intake.md      ← send this to the candidate
+    ahmad-r-intake.md                 ← send this to the candidate
     INSTRUCTIONS-TO-CLIENT.md         ← and this, with the "provable numbers" rule
   profile/candidate-profile.md        ← copy their returned file here
   out/Master-CV.html
   out/Master-CL.md
+  out/applications/                   ← per-job tailored copies go here
   report/                             ← the verification report goes here
 ```
 
@@ -324,7 +325,7 @@ scripts/verify_pdf.py out.pdf --pages 2 --expect-links 7 --min-chars-per-page 20
 
 Exit code `0` is clean, `1` is one or more failures, so it drops straight into CI.
 The repo's own CI (`.github/workflows/smoke-test.yml`) re-renders the fictional
-example and verifies it on every change to the scripts or templates.
+example and verifies it on every change to the scripts, templates, or the example.
 
 ### The verification report
 

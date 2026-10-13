@@ -28,6 +28,13 @@ mkdir -p "$(dirname "$OUT")"
 OUT_ABS="$(cd "$(dirname "$OUT")" && pwd)/$(basename "$OUT")"
 
 find_chrome() {
+  if [ -n "${CHROME_BIN:-}" ]; then
+    if [ -x "${CHROME_BIN}" ]; then
+      echo "${CHROME_BIN}"
+      return 0
+    fi
+    echo "warning: CHROME_BIN=${CHROME_BIN} is not executable; auto-detecting." >&2
+  fi
   local candidates=(
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
     "/Applications/Chromium.app/Contents/MacOS/Chromium"
