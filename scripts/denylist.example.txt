@@ -1,0 +1,28 @@
+# Denylist — PERSONAL terms specific to you. ONE PER LINE, matched
+# case-insensitively as a fixed string.
+#
+#   cp scripts/denylist.example.txt scripts/denylist.local.txt
+#
+# scripts/denylist.local.txt is gitignored and must NEVER be committed — it
+# contains the very strings we are trying to keep out of the repo.
+#
+# Fill this in before your first push. pre-publish-check.sh warns (loudly) if
+# this file is missing.
+
+# ---- your own identity ----
+# your full name, and any name variant that appears in your files
+YOUR FULL NAME
+YOUR USERNAME
+# your email addresses
+you@yourdomain.com
+
+# ---- your employers and clients ----
+# every company name that must not appear in a public example
+CLIENT COMPANY NAME
+SECOND CLIENT COMPANY
+
+# ---- anything genuinely confidential ----
+# an app bundle id that reveals a client
+com.clientbundle.id
+# a university or government body you built for
+GOVT ORGANISATION NAME

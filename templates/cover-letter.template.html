@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+  agentic-career-kit — cover letter template
+  Render:  scripts/render.sh <this-file> <output.pdf>
+  Verify:  scripts/verify_pdf.py <output.pdf> --pages 1
+
+  Fills the structure of templates/cover-letter.template.md into a one-page A4
+  PDF that matches the CV's typography. Same rules as the resume template apply:
+  keep the CSS block byte-for-byte, keep body text at 10pt, and use real
+  <a href> links so they survive as PDF annotations. Replace every {{PLACEHOLDER}}
+  and delete the instruction comments before rendering.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{FULL NAME}} — Cover Letter</title>
+<style>
+  :root { color-scheme: light; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #1c1c1c;
+    font-size: 10pt;
+    line-height: 1.24;
+    background: #e8e8e8;
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0, "clig" 0, "dlig" 0, "hlig" 0;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 8px;
+    padding: 12mm 14mm 10mm 14mm;
+    background: #fff;
+  }
+  @media print {
+    body { background: #fff; }
+    .page { width: auto; min-height: auto; padding: 0; }
+    @page { size: A4; margin: 10mm 13mm; }
+  }
+
+  header { margin-bottom: 10px; }
+  h1 {
+    font-size: 18pt;
+    letter-spacing: 2px;
+    color: #14324f;
+    font-weight: 700;
+  }
+  .tagline { font-size: 11pt; color: #2b6cb0; font-weight: 600; margin: 2px 0 4px; }
+  .contact { font-size: 10pt; color: #333; }
+  .contact a { color: #2b6cb0; text-decoration: none; }
+  .contact .sep { color: #999; margin: 0 5px; }
+
+  .letter { margin-top: 6px; }
+  .letter p { text-align: justify; margin-bottom: 8px; }
+  .salutation { margin-bottom: 8px; }
+  .signoff { margin-top: 12px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header>
+    <h1>{{FULL NAME}}</h1>
+    <div class="tagline">{{TARGET TITLE}}</div>
+    <div class="contact">
+      <a href="tel:{{+COUNTRY CODE NUMBER}}">{{+COUNTRY CODE NUMBER}}</a><span class="sep">|</span>
+      <a href="mailto:{{EMAIL}}">{{EMAIL}}</a><span class="sep">|</span>
+      <a href="https://linkedin.com/in/{{HANDLE}}">linkedin.com/in/{{HANDLE}}</a>
+    </div>
+  </header>
+
+  <p class="salutation">Dear Hiring Manager,</p>
+
+  <div class="letter">
+    <!-- P1 — who I am + why THIS role. Target title, years, one line of context.
+         Name the specific, non-generic reason this role interests you. -->
+    <p>I am a {{TARGET TITLE}} with {{N}}+ years of experience {{ONE LINE OF DOMAIN CONTEXT}}. I am writing to apply for the {{ROLE TITLE}} position at {{COMPANY}}{{ — the part of the posting that genuinely interests me}}.</p>
+
+    <!-- P2 — the proof. Two or three concrete, quantified achievements in
+         reverse-chronological order. Only numbers that exist in the profile. -->
+    <p>In my most recent role at {{EMPLOYER}} I {{ACCOMPLISHMENT 1 with a number if one exists}}, along with {{ACCOMPLISHMENT 2}}. Before that, at {{EMPLOYER}}, I {{ACCOMPLISHMENT 3}}. Across these roles I have {{ONE SENTENCE TIEING THEM TO WHAT THIS JOB NEEDS}}.</p>
+
+    <!-- P3 — what the CV cannot say + a clear ask to talk. One sentence. -->
+    <p>I would welcome the chance to discuss how I can contribute to your team.</p>
+  </div>
+
+  <div class="signoff">
+    <p>Sincerely,</p>
+    <p>{{FULL NAME}}</p>
+  </div>
+
+</div>
+
+</body>
+</html>

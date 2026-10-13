@@ -1,0 +1,38 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Real candidate workspaces — NEVER commit these.
+# Someone's CV, cover letter, phone number, employer, or salary history lives here.
+clients/
+
+# Your own filled-in profile and generated CV/cover letter. Real personal data;
+# the README tells users to create these, so keep them out of version control.
+# Anchored where possible so the tracked fictional example is never affected.
+.opencode/context/candidate-profile.md
+/profile/
+/out/
+/my-profile.md
+
+# Personal denylist. Contains the repo owner's real names, clients and employers,
+# which is precisely why it must never be published.
+scripts/denylist.local.txt
+
+# Editor noise
+.idea/
+.vscode/
+*.swp
+
+# Local agent settings that may hold personal data or machine paths.
+# The tracked .claude/skills and .agents/skills are symlinks and stay committed.
+.claude/settings.local.json
+.agents/settings.local.json
+
+# Credentials
+.env
+.env.*
+*.pem
+*.p12
+*.keystore
+*.jks

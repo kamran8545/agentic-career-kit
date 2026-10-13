@@ -1,0 +1,19 @@
+# Denylist — GENERIC patterns that must never appear in a published repo.
+# One pattern per line, matched case-insensitively as a fixed string.
+# Lines starting with # are comments. Blank lines ignored.
+#
+# This file is committed. Do NOT put a real person's or real client's data
+# here — fixed strings that identify a specific app or company belong in
+# scripts/denylist.local.txt, which is gitignored.
+
+# access tokens and private keys
+ghp_
+gho_
+ghu_
+ghs_
+ghr_
+github_pat_
+AKIA
+BEGIN RSA PRIVATE KEY
+BEGIN OPENSSH PRIVATE KEY
+BEGIN PRIVATE KEY

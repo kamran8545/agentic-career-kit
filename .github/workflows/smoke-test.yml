@@ -1,0 +1,33 @@
+name: smoke-test
+
+on:
+  push:
+    paths:
+      - "scripts/**"
+      - "templates/**"
+      - "examples/fictional-candidate/**"
+      - ".github/workflows/smoke-test.yml"
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "templates/**"
+      - "examples/fictional-candidate/**"
+  workflow_dispatch:
+
+jobs:
+  render-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install the only dependency
+        run: python3 -m pip install pypdf
+
+      - name: Render the fictional example
+        run: scripts/render.sh examples/fictional-candidate/out/Master-CV.html /tmp/ci-cv.pdf
+
+      - name: Verify it survives ATS text extraction
+        run: scripts/verify_pdf.py /tmp/ci-cv.pdf --pages 2

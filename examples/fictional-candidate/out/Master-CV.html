@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--
+  Worked example — fictional candidate. Render and verify it to see the output:
+    scripts/render.sh examples/fictional-candidate/out/Master-CV.html \
+                      examples/fictional-candidate/out/Master-CV.pdf
+    scripts/verify_pdf.py examples/fictional-candidate/out/Master-CV.pdf --pages 2
+
+  This file exists so a new user can see what "done" looks like before writing
+  anything, and so the scripts have something real to be tested against in CI.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Alex Rivera — Data Engineer</title>
+<style>
+  :root { color-scheme: light; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #1c1c1c;
+    font-size: 10pt;
+    line-height: 1.24;
+    background: #e8e8e8;
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0, "clig" 0, "dlig" 0, "hlig" 0;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 8px;
+    padding: 12mm 14mm 10mm 14mm;
+    background: #fff;
+  }
+  @media print {
+    body { background: #fff; }
+    .page { width: auto; min-height: auto; padding: 0; }
+    .page + .page { break-before: page; }
+    @page { size: A4; margin: 10mm 13mm; }
+  }
+
+  /* ---------- Header ---------- */
+  header { text-align: center; margin-bottom: 8px; }
+  h1 {
+    font-size: 24pt;
+    letter-spacing: 3px;
+    color: #14324f;
+    font-weight: 700;
+  }
+  .tagline {
+    font-size: 13pt;
+    color: #2b6cb0;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    margin: 3px 0 6px;
+  }
+  .contact { font-size: 10pt; color: #333; }
+  .contact a { color: #2b6cb0; text-decoration: none; }
+  .contact .sep { color: #999; margin: 0 5px; }
+
+  /* ---------- Sections ---------- */
+  h2 {
+    font-size: 12pt;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: #14324f;
+    border-bottom: 1.2px solid #14324f;
+    padding-bottom: 2px;
+    margin: 10px 0 4px;
+  }
+  section:first-of-type h2 { margin-top: 3px; }
+  p.summary { text-align: justify; }
+
+  /* ---------- Skills ---------- */
+  .skills { width: 100%; }
+  .skill-row { display: flex; padding: 1px 0; }
+  .skill-label {
+    flex: 0 0 150px;
+    font-weight: 700;
+    color: #14324f;
+  }
+  .skill-value { flex: 1; }
+
+  /* ---------- Experience ---------- */
+  .job { margin-bottom: 7px; page-break-inside: avoid; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .job-company { font-size: 11.5pt; font-weight: 700; color: #14324f; }
+  .job-title { font-weight: 600; color: #2b6cb0; }
+  .job-date { font-weight: 600; color: #444; white-space: nowrap; }
+  .job-block { margin: 2px 0 1px; }
+  .blk-label { font-weight: 700; color: #2b6cb0; }
+  ul { list-style: none; }
+  li { padding-left: 12px; margin: 1px 0; text-indent: -12px; }
+
+  /* ---------- Projects ---------- */
+  .proj { margin-bottom: 5px; page-break-inside: avoid; }
+  .proj-head { font-weight: 700; color: #14324f; }
+  .proj a { color: #2b6cb0; text-decoration: none; }
+  .proj p { display: inline; }
+
+  /* ---------- Publications ---------- */
+  .pub { margin-bottom: 3px; page-break-inside: avoid; }
+  .pub-title { font-style: italic; }
+  .pub-venue { color: #444; }
+
+  /* ---------- Education / misc ---------- */
+  .edu-head { display: flex; justify-content: space-between; align-items: baseline; page-break-inside: avoid; }
+  .edu-name { font-weight: 700; color: #14324f; }
+  .edu-school { color: #444; }
+  .note { font-style: italic; color: #666; }
+  .languages span { margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header>
+    <h1>ALEX RIVERA</h1>
+    <div class="tagline">Data Engineer</div>
+    <div class="contact">
+      <a href="tel:+442079460000">+44 20 7946 0000</a><span class="sep">|</span>
+      <a href="mailto:alex.rivera@example.com">alex.rivera@example.com</a>
+    </div>
+    <div class="contact">
+      LinkedIn: <a href="https://www.linkedin.com/in/alex-rivera-example">linkedin.com/in/alex-rivera-example</a><span class="sep">|</span>
+      GitHub: <a href="https://example.com/alex-rivera">github.com/alex-rivera</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Professional Summary</h2>
+    <p class="summary">Data Engineer with 6+ years of experience designing batch and streaming pipelines for analytics platforms. Migrated a legacy warehouse to a lakehouse architecture, cut nightly pipeline runtime from 6 hours to 25 minutes, and owned ingestion for roughly 2 petabytes of event data per month. Deep experience with schema design, data-quality enforcement, and orchestration across Airflow, Spark, and dbt.</p>
+  </section>
+
+  <section>
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      <div class="skill-row"><span class="skill-label">Languages:</span><span class="skill-value">Python, SQL, Scala, Bash</span></div>
+      <div class="skill-row"><span class="skill-label">Orchestration &amp; Streaming:</span><span class="skill-value">Apache Airflow, Kafka, Spark, dbt</span></div>
+      <div class="skill-row"><span class="skill-label">Storage &amp; Warehousing:</span><span class="skill-value">Snowflake, BigQuery, Postgres, Parquet, Delta Lake</span></div>
+      <div class="skill-row"><span class="skill-label">Cloud &amp; Infrastructure:</span><span class="skill-value">AWS (S3, Glue, Redshift), Terraform, Docker, GitHub Actions</span></div>
+      <div class="skill-row"><span class="skill-label">Quality &amp; Observability:</span><span class="skill-value">Great Expectations, dbt tests, Grafana, Prometheus</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Professional Experience</h2>
+
+    <div class="job">
+      <div class="job-head"><span class="job-company">Northwind Analytics</span><span class="job-date">Mar 2022 &ndash; Present</span></div>
+      <div class="job-head"><span class="job-title">Senior Data Engineer</span></div>
+      <ul>
+        <li>&bull; <span class="blk-label">Pipeline Ownership:</span> Own the ingestion platform behind 40+ internal dashboards and 3 customer-facing reports, processing approximately 2 petabytes of event data per month.</li>
+        <li>&bull; <span class="blk-label">Performance:</span> Rebuilt a 6-hour nightly batch job as an incremental pipeline, reducing runtime to 25 minutes and removing the pre-dawn completion window that operations depended on.</li>
+        <li>&bull; <span class="blk-label">Data Contracts:</span> Introduced schema contracts and automated quality gates, letting upstream teams ship changes without silently breaking downstream consumers.</li>
+        <li>&bull; <span class="blk-label">Infrastructure:</span> Managed provisioning and cost across AWS and Terraform for a team of 6 engineers, including a migration to a lakehouse layout on Delta Lake.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head"><span class="job-company">Hallfield Logistics</span><span class="job-date">Aug 2019 &ndash; Feb 2022</span></div>
+      <div class="job-head"><span class="job-title">Data Engineer</span></div>
+      <ul>
+        <li>&bull; <span class="blk-label">Streaming Ingest:</span> Built the fleet-telemetry pipeline handling 1.2M GPS and arrival events per day, replacing a nightly CSV hand-off with Kafka-based streaming ingest.</li>
+        <li>&bull; <span class="blk-label">Data Quality:</span> Built validation checks that caught malformed vehicle records before they reached operations, reducing missing-data support tickets by 60%.</li>
+        <li>&bull; <span class="blk-label">Scale:</span> Supported the platform's growth from 12 to 900+ active vehicles without redesigning the ingestion contract.</li>
+      </ul>
+    </div>
+
+  </section>
+
+</div>
+
+<div class="page">
+
+  <section>
+    <h2>Professional Experience</h2>
+    <div class="job">
+      <div class="job-head"><span class="job-company">Brookline Analytics</span><span class="job-date">Sep 2018 &ndash; Jul 2019</span></div>
+      <div class="job-head"><span class="job-title">Junior Data Analyst</span></div>
+      <ul>
+        <li>&bull; <span class="blk-label">Reporting Automation:</span> Automated 4 recurring client reports previously assembled by hand, saving roughly 8 hours per week.</li>
+        <li>&bull; <span class="blk-label">Analysis:</span> Produced margin, retention, and cohort reporting for retail clients, translating findings into non-technical summaries for store managers.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Key Projects</h2>
+    <div class="proj">
+      <span class="proj-head">Pipeline Cost Monitor</span> <span class="job-title">Sole author.</span> Spend and runtime tracking for 200+ scheduled jobs, surfacing pipeline regressions before they reach a morning report. Link: <a href="https://example.com/portfolio/pipeline-cost-monitor">Project page</a>.
+    </div>
+    <div class="proj">
+      <span class="proj-head">OpenETL</span> <span class="job-title">Maintainer.</span> Open-source Python library providing composable, testable extract-transform-load steps with built-in fixtures. Link: <a href="https://example.com/portfolio/openetl">Project page</a>.
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="edu-head"><span class="edu-name">BSc (Hons) Computer Science</span><span class="job-date">Oct 2015 &ndash; Jun 2018</span></div>
+    <div class="edu-school">University of Bristol</div>
+  </section>
+
+  <section>
+    <h2>Languages</h2>
+    <div class="languages">
+      <span>English <span class="note">(Native)</span></span>
+      <span>Spanish <span class="note">(Professional)</span></span>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

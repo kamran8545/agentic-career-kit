@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--
+  agentic-career-kit — resume template
+  Render:  scripts/render.sh <this-file> <output.pdf>
+  Verify:  scripts/verify_pdf.py <output.pdf>
+
+  REPLACEMENT RULES
+  - {{PLACEHOLDER}}  replace with real data, then DELETE the instruction comment.
+  - Bullets are literal "&bull;" text inside each <li>. NEVER use a CSS ::before
+    pseudo-element — the first bullet's glyph is dropped during PDF text extraction.
+  - Keep the CSS block byte-for-byte as shipped. The ligature rules are what stop
+    "Conﬁg" style corruption in extracted text.
+  - Body font is 10pt by design. Do not shrink it to force the page count.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{FULL NAME}} — {{TARGET TITLE}}</title>
+<style>
+  :root { color-scheme: light; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #1c1c1c;
+    font-size: 10pt;
+    line-height: 1.24;
+    background: #e8e8e8;
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0, "clig" 0, "dlig" 0, "hlig" 0;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 8px;
+    padding: 12mm 14mm 10mm 14mm;
+    background: #fff;
+  }
+  @media print {
+    body { background: #fff; }
+    .page { width: auto; min-height: auto; padding: 0; }
+    .page + .page { break-before: page; }
+    @page { size: A4; margin: 10mm 13mm; }
+  }
+
+  /* ---------- Header ---------- */
+  header { text-align: center; margin-bottom: 8px; }
+  h1 {
+    font-size: 24pt;
+    letter-spacing: 3px;
+    color: #14324f;
+    font-weight: 700;
+  }
+  .tagline {
+    font-size: 13pt;
+    color: #2b6cb0;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    margin: 3px 0 6px;
+  }
+  .contact { font-size: 10pt; color: #333; }
+  .contact a { color: #2b6cb0; text-decoration: none; }
+  .contact .sep { color: #999; margin: 0 5px; }
+
+  /* ---------- Sections ---------- */
+  h2 {
+    font-size: 12pt;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: #14324f;
+    border-bottom: 1.2px solid #14324f;
+    padding-bottom: 2px;
+    margin: 10px 0 4px;
+  }
+  section:first-of-type h2 { margin-top: 3px; }
+  p.summary { text-align: justify; }
+
+  /* ---------- Skills ---------- */
+  .skills { width: 100%; }
+  .skill-row { display: flex; padding: 1px 0; }
+  .skill-label {
+    flex: 0 0 150px;
+    font-weight: 700;
+    color: #14324f;
+  }
+  .skill-value { flex: 1; }
+
+  /* ---------- Experience ---------- */
+  .job { margin-bottom: 7px; page-break-inside: avoid; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .job-company { font-size: 11.5pt; font-weight: 700; color: #14324f; }
+  .job-title { font-weight: 600; color: #2b6cb0; }
+  .job-date { font-weight: 600; color: #444; white-space: nowrap; }
+  .job-block { margin: 2px 0 1px; }
+  .blk-label { font-weight: 700; color: #2b6cb0; }
+  ul { list-style: none; }
+  li { padding-left: 12px; margin: 1px 0; text-indent: -12px; }
+
+  /* ---------- Projects ---------- */
+  .proj { margin-bottom: 5px; page-break-inside: avoid; }
+  .proj-head { font-weight: 700; color: #14324f; }
+  .proj a { color: #2b6cb0; text-decoration: none; }
+  .proj p { display: inline; }
+
+  /* ---------- Publications ---------- */
+  .pub { margin-bottom: 3px; page-break-inside: avoid; }
+  .pub-title { font-style: italic; }
+  .pub-venue { color: #444; }
+
+  /* ---------- Education / misc ---------- */
+  .edu-head { display: flex; justify-content: space-between; align-items: baseline; page-break-inside: avoid; }
+  .edu-name { font-weight: 700; color: #14324f; }
+  .edu-school { color: #444; }
+  .note { font-style: italic; color: #666; }
+  .languages span { margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header>
+    <h1>{{FULL NAME IN CAPS}}</h1>
+    <div class="tagline">{{TARGET TITLE — the ONE role you are applying for}}</div>
+    <div class="contact">
+      <a href="tel:{{+COUNTRY CODE NUMBER}}">{{+COUNTRY CODE NUMBER}}</a><span class="sep">|</span>
+      <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+    </div>
+    <div class="contact">
+      LinkedIn: <a href="https://linkedin.com/in/{{HANDLE}}">linkedin.com/in/{{HANDLE}}</a><span class="sep">|</span>
+      GitHub: <a href="https://github.com/{{HANDLE}}">github.com/{{HANDLE}}</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Professional Summary</h2>
+    <!-- 3–4 sentences. Lead with target title + years. Name the 2–3 things this
+         job posting actually asks for. Close with a scale/impact number. -->
+    <p class="summary">{{TARGET TITLE}} with {{N}}+ years of experience {{ONE LINE OF DOMAIN CONTEXT}}. {{SECOND SENTENCE — strongest capability relevant to THIS posting}}. {{THIRD SENTENCE — another required skill, named as the posting names it}}. {{CLOSING SENTENCE — scope of impact, with a number if one exists}}.</p>
+  </section>
+
+  <section>
+    <h2>Technical Skills</h2>
+    <!-- Rename these row labels to match your own field. Keep 5–7 rows.
+         Only list skills you can defend in an interview. -->
+    <div class="skills">
+      <div class="skill-row"><span class="skill-label">{{Category 1}}:</span><span class="skill-value">{{comma, separated, list}}</span></div>
+      <div class="skill-row"><span class="skill-label">{{Category 2}}:</span><span class="skill-value">{{comma, separated, list}}</span></div>
+      <div class="skill-row"><span class="skill-label">{{Category 3}}:</span><span class="skill-value">{{comma, separated, list}}</span></div>
+      <div class="skill-row"><span class="skill-label">{{Category 4}}:</span><span class="skill-value">{{comma, separated, list}}</span></div>
+      <div class="skill-row"><span class="skill-label">{{Category 5}}:</span><span class="skill-value">{{comma, separated, list}}</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Professional Experience</h2>
+    <!-- NEWEST ROLE FIRST. Reverse-chronological, no gaps left unexplained.
+         3–5 bullets per role. Each bullet: {{LABEL:}} action verb + what + number. -->
+
+    <div class="job">
+      <div class="job-head"><span class="job-company">{{EMPLOYER}}</span><span class="job-date">{{Mon YYYY}} &ndash; Present</span></div>
+      <div class="job-head"><span class="job-title">{{YOUR TITLE HERE}}</span></div>
+      <ul>
+        <li>&bull; <span class="blk-label">{{Label}}:</span> {{Past-tense verb + what you built/owned + measurable result.}}</li>
+        <li>&bull; <span class="blk-label">{{Label}}:</span> {{Second accomplishment, with a number if one exists.}}</li>
+        <li>&bull; <span class="blk-label">{{Label}}:</span> {{Third accomplishment.}}</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head"><span class="job-company">{{EMPLOYER}}</span><span class="job-date">{{Mon YYYY}} &ndash; {{Mon YYYY}}</span></div>
+      <div class="job-head"><span class="job-title">{{YOUR TITLE HERE}}</span></div>
+      <ul>
+        <li>&bull; <span class="blk-label">{{Label}}:</span> {{Accomplishment with a number.}}</li>
+        <li>&bull; <span class="blk-label">{{Label}}:</span> {{Accomplishment.}}</li>
+      </ul>
+    </div>
+
+  </section>
+
+</div>
+
+<!--
+  PAGE 2 — move the remaining roles here, then projects / education / languages.
+  Each <div class="page"> becomes exactly one printed A4 sheet.
+  Target: 2 pages. Delete any whole section you have no real data for.
+-->
+<div class="page">
+
+  <section>
+    <h2>Professional Experience</h2>
+    <div class="job">
+      <div class="job-head"><span class="job-company">{{EMPLOYER}}</span><span class="job-date">{{Mon YYYY}} &ndash; {{Mon YYYY}}</span></div>
+      <div class="job-head"><span class="job-title">{{YOUR TITLE HERE}}</span></div>
+      <ul>
+        <li>&bull; <span class="blk-label">{{Label}}:</span> {{Accomplishment.}}</li>
+        <li>&bull; <span class="blk-label">{{Label}}:</span> {{Accomplishment.}}</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Key Projects</h2>
+    <!-- Optional. Delete the whole section if you have nothing linkable.
+         2–6 entries. Real <a href> links become clickable annotations in the PDF —
+         verify_pdf.py counts them. -->
+    <div class="proj">
+      <span class="proj-head">{{PROJECT NAME}}</span> <span class="job-title">{{Your role.}}</span> {{What it does, in one line, with a number if verifiable.}} Links: <a href="{{URL}}">{{LINK LABEL}}</a>.
+    </div>
+    <div class="proj">
+      <span class="proj-head">{{PROJECT NAME}}</span> <span class="job-title">{{Your role.}}</span> {{One-line description.}} Link: <a href="{{URL}}">{{LINK LABEL}}</a>.
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="edu-head"><span class="edu-name">{{DEGREE}}</span><span class="job-date">{{Mon YYYY}} &ndash; {{Mon YYYY}}</span></div>
+    <div class="edu-school">{{Institution}}</div>
+  </section>
+
+  <section>
+    <h2>Languages</h2>
+    <div class="languages">
+      <span>{{LANGUAGE}} <span class="note">({{Proficiency}})</span></span>
+      <span>{{LANGUAGE}} <span class="note">({{Proficiency}})</span></span>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
