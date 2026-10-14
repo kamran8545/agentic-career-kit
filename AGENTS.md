@@ -20,6 +20,7 @@ Everything below exists to serve that.
 | Path | Role |
 | ---- | ---- |
 | `context/candidate-profile.template.md` | The intake form a user fills in. Source of all candidate data. |
+| `inbox/` | **Gitignored except its README and placeholder.** Where a user drops an existing resume PDF to be imported. |
 | `skills/` | Five skills: `candidate-intake`, `job-posting-analysis`, `cv-update`, `cover-letter-writer`, `ats-resume-audit`. Plain markdown. Canonical copy. |
 | `.claude/skills/`, `.agents/skills/` | Symlinks to `skills/` so opencode, Claude Code, Cursor, Antigravity, and Codex auto-load the same files. Never edit these directly. |
 | `CLAUDE.md` | Claude Code entry point; imports `AGENTS.md`. |
@@ -31,6 +32,7 @@ Everything below exists to serve that.
 | `scripts/render.ps1` | HTML → PDF on native Windows (PowerShell). Same flags as `render.sh`. |
 | `scripts/check-setup.sh` | Reports missing browser / Python / `pypdf`, with the fix for each OS. |
 | `scripts/verify_pdf.py` | Five extraction checks. pypdf is the only dependency. |
+| `scripts/extract_resume.py` | Reads an existing resume PDF into text for intake. pypdf only; repairs ligatures; reports scanned/locked PDFs. |
 | `scripts/new-client.sh` | Scaffolds `clients/<Name>-<date>/`. |
 | `scripts/pre-publish-check.sh` | Blocks publishing leaked PII, secrets, or tracked binaries. |
 | `scripts/denylist.txt` | Committed generic patterns. Never real personal data. |
@@ -84,6 +86,17 @@ looks correct and the ATS cannot read it.
 
 ## Workflow for a candidate
 
+The import path — a user who already has a resume:
+
+> The user drops a PDF into `inbox/` and types **"build my resume."** The
+> `candidate-intake` skill finds no profile, sees the PDF, and runs
+> `scripts/extract_resume.py` to read it. It pre-fills
+> `context/candidate-profile.md` with every fact the text supports, shows the
+> user what it found for correction, and then asks only the questions the resume
+> does not answer. Everything imported is a claim to confirm, never invented. If
+> the PDF is a scan with no selectable text, the script says so and the skill
+> falls back to the interview below.
+
 The conversational path — a user with nothing filled in yet:
 
 > User opens the repo in their agent and types **"build my resume."** The
@@ -117,9 +130,11 @@ scripts/pre-publish-check.sh
 
 Must print `RESULT: CLEAN`. It scans the working tree, the staged set, and full
 git history for tokens, absolute local paths, denylisted terms, contact-shaped
-strings, and tracked binaries. `LICENSE`, `README.md`, and `CONTRIBUTING.md` are
-exempt from the personal denylist because naming the repo owner there (its own
-clone URL) is intended.
+strings, and tracked binaries. The gitignored `inbox/` is skipped by the
+working-tree scans — it holds a user's own resume, which cannot be committed
+anyway; anything force-staged is still scanned. `LICENSE`, `README.md`, and
+`CONTRIBUTING.md` are exempt from the personal denylist because naming the repo
+owner there (its own clone URL) is intended.
 
 ## Adding a new check to verify_pdf.py
 

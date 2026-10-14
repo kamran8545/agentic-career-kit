@@ -8,6 +8,11 @@
 # forgetful `git add -A` and publishing someone's phone number, a client's name,
 # or your own access token.
 #
+# `inbox/` is skipped by the working-tree scans: it is gitignored and exists to
+# hold a user's own resume, so scanning it would flag the very data the folder
+# is there to keep local. Ignored files cannot be staged without `git add -f`,
+# and the `--staged` scan still sees anything that was forced in.
+#
 # Exits 0 clean, 1 if anything matched.
 
 set -uo pipefail
@@ -74,7 +79,7 @@ is_excluded() {
 
 scan_stream() {                        # $1 = label
   local label="$1" pat f hits n rflag=()
-  [ "$RECURSIVE" -eq 1 ] && rflag=(-r --exclude-dir=.git --exclude-dir=node_modules)
+  [ "$RECURSIVE" -eq 1 ] && rflag=(-r --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=inbox)
   for pat in $PATTERNS; do
     for f in "${SCAN_LIST[@]}"; do
       is_excluded "$f" && continue
@@ -113,7 +118,7 @@ echo
 # --------------------------------------------------------- 1. credential shapes
 echo "-- generic secret patterns"
 CRED=$(grep -rInE 'gh[pousr]_[A-Za-z0-9]{16,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----' \
-        --exclude-dir=.git --exclude-dir=node_modules . 2>/dev/null | grep -v '^./scripts/denylist' || true)
+        --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=inbox . 2>/dev/null | grep -v '^./scripts/denylist' || true)
 if [ -n "$CRED" ]; then
   echo "FAIL  credential-shaped strings found:"
   printf '%s\n' "$CRED" | head -10 | sed 's/^/        /'
@@ -127,7 +132,7 @@ echo
 # ------------------------------------------------ 2. absolute local filesystem paths
 echo "-- absolute local paths"
 PATHS=$(grep -rInE '(/Users/[A-Za-z0-9._-]+|/home/[A-Za-z0-9._-]+|[A-Z]:\\\\Users\\\\)' \
-          --exclude-dir=.git --exclude-dir=node_modules . 2>/dev/null | grep -v '^./scripts/denylist' || true)
+          --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=inbox . 2>/dev/null | grep -v '^./scripts/denylist' || true)
 if [ -n "$PATHS" ]; then
   echo "FAIL  absolute machine paths found:"
   printf '%s\n' "$PATHS" | head -10 | sed 's/^/        /'
@@ -154,7 +159,7 @@ echo
 # ------------------------------------------------------- 4. PII-shaped contact data
 echo "-- contact data"
 PII=$(grep -rInE '\+?[0-9]{2,4}[ -][0-9]{3}[ -][0-9]{4,5}|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' \
-        --exclude-dir=.git --exclude-dir=node_modules . 2>/dev/null \
+        --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=inbox . 2>/dev/null \
       | grep -v '^./scripts/denylist' \
       | grep -vEi 'example\.(com|org)|yourdomain|your-email|@template|@placeholder' || true)
 if [ -n "$PII" ]; then

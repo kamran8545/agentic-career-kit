@@ -31,3 +31,10 @@ jobs:
 
       - name: Verify it survives ATS text extraction
         run: scripts/verify_pdf.py /tmp/ci-cv.pdf --pages 2
+
+      - name: Import it back (the resume-PDF intake path)
+        run: |
+          scripts/extract_resume.py /tmp/ci-cv.pdf --out /tmp/ci-cv.txt
+          grep -qi "alex rivera" /tmp/ci-cv.txt
+          grep -q "Northwind Analytics" /tmp/ci-cv.txt
+          echo "extract_resume.py round-trips the rendered CV"

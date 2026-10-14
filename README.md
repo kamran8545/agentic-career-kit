@@ -9,6 +9,11 @@ nobody can verify. This is the opposite — plain text files in a folder, an AI
 coding agent you may already have installed, and a script that proves your
 finished PDF actually parses.
 
+**Already have a resume?** Drop a PDF into [`inbox/`](inbox/README.md), open this
+repo in your agent, and say **"Build my resume."** The agent reads it, pre-fills
+your profile, and asks only the questions it does not answer. See
+[Option 0](#step-by-step-your-own-cv) below.
+
 ```bash
 git clone https://github.com/kamran8545/agentic-career-kit.git
 cd agentic-career-kit
@@ -51,14 +56,15 @@ proof is the deliverable.
 ## How it works
 
 ```
-candidate-profile.md  ──►  resume.template.html  ──►  Master-CV.html
-  (you fill it in —           (the agent fills it)          │
-   or the agent interviews                                  ▼
-   you and fills it)  scripts/render.sh ──► PDF ──► scripts/verify_pdf.py ──► PASS
+inbox/*.pdf ──► extract_resume.py ──► candidate-profile.md ──► resume.template.html
+  (optional:              (the agent reads          (the agent fills)      │
+   your old resume)        the text)                                       ▼
+                          scripts/render.sh ──► PDF ──► scripts/verify_pdf.py ──► PASS
 ```
 
-1. You fill in one markdown file: your profile — by hand, or by answering the
-   agent's questions.
+1. You fill in one markdown file: your profile — by hand, by answering the
+   agent's questions, or by dropping an existing resume PDF in `inbox/` for the
+   agent to read (`scripts/extract_resume.py`) and pre-fill.
 2. An AI agent reads it and fills `templates/resume.template.html`.
 3. `scripts/render.sh` turns the HTML into a PDF via headless Chrome.
 4. `scripts/verify_pdf.py` extracts the text back out and proves it survived.
@@ -95,9 +101,23 @@ template. See [Troubleshooting](#troubleshooting).
 
 ## Step by step: your own CV
 
-There are two ways in. Pick one.
+There are three ways in. Pick one.
 
-**Option A — let the agent interview you (easiest).** Open this folder in your
+**Option 0 — you already have a resume (fastest).** Drop a PDF of your current
+resume into the [`inbox/`](inbox/README.md) folder, open this repo in your agent,
+and say:
+
+> **Build my resume.**
+
+The agent reads the PDF with `scripts/extract_resume.py`, pre-fills
+`context/candidate-profile.md` with everything it can read — name, contact,
+roles, dates, skills, education — then **shows you what it found** and asks you
+to correct it. After that it asks only the questions the resume does not answer,
+one at a time. Nothing is treated as proven: you confirm every fact. The PDF
+must contain real text; a scan or photo cannot be read without OCR, which this
+repo does not depend on.
+
+**Option A — let the agent interview you.** Open this folder in your
 agent and just say:
 
 > **Build my resume.**
@@ -129,9 +149,10 @@ Delete any section you have no data for. Do not leave blanks.
 > about in the interview. See [docs/VERIFIED-METRICS.md](docs/VERIFIED-METRICS.md).
 
 > **Privacy:** `candidate-profile.md` contains real personal data. The paths used
-> here — `context/candidate-profile.md`, `profile/`, and generated
-> `out/` files — are already gitignored, so a filled-in profile is not committed
-> by accident. Still never commit it deliberately.
+> here — `context/candidate-profile.md`, `profile/`, generated `out/` files, and
+> the `inbox/` drop folder — are already gitignored, so a filled-in profile or a
+> pasted resume is not committed by accident. Still never commit them
+> deliberately.
 >
 > If you would rather keep everything in one self-contained gitignored folder,
 > use the client workspace in [Building for other people](#building-for-other-people) —
@@ -182,7 +203,7 @@ Nothing here is locked inside a server. The skills are plain markdown in
 
 | Skill | Ask it when you want to… | Typical prompt |
 | --- | --- | --- |
-| `candidate-intake` | Build a profile from scratch by answering questions | *"Build my resume."* |
+| `candidate-intake` | Build a profile from scratch, or pre-fill it from an existing resume PDF | *"Build my resume."* |
 | `job-posting-analysis` | Decide whether to apply, and see the exact keyword gaps | *"Analyse this job posting against my profile."* |
 | `cv-update` | Build or tailor a CV | *"Tailor my CV to this job posting."* |
 | `cover-letter-writer` | Write the matching letter | *"Write a cover letter for this role."* |
@@ -190,10 +211,13 @@ Nothing here is locked inside a server. The skills are plain markdown in
 
 What each one actually does:
 
-- **`candidate-intake`** — when there is no profile yet, asks one question at a
-  time (name → target title → contact → each role → skills → …), writes each
-  answer into `candidate-profile.md` immediately, and never invents a number.
-  Hands off to `cv-update` once the essentials are in.
+- **`candidate-intake`** — when there is no profile yet, first checks `inbox/`
+  for an existing resume PDF. If one is there, it reads it, pre-fills the profile
+  with what it can, shows you what it found, and asks only about the gaps.
+  Otherwise it asks everything one question at a time (name → target title →
+  contact → each role → skills → …), writes each answer into
+  `candidate-profile.md` immediately, and never invents a number. Hands off to
+  `cv-update` once the essentials are in.
 - **`job-posting-analysis`** — separates must-haves from nice-to-haves, extracts
   the posting's exact keywords, compares them against your profile, and returns a
   fit score out of 100 with the specific keyword gaps and honest gaps. A clear
@@ -308,6 +332,7 @@ leave it.
 | `scripts/render.sh in.html out.pdf` | HTML → PDF via headless Chrome. macOS and Linux (incl. WSL). |
 | `scripts/render.ps1 in.html out.pdf` | HTML → PDF on native Windows (PowerShell). Same Chrome flags as `render.sh`. |
 | `scripts/verify_pdf.py out.pdf --pages 2` | Proves the PDF survives text extraction. **Run this every time.** |
+| `scripts/extract_resume.py in.pdf [--out out.txt]` | Reads an existing resume PDF so the agent can pre-fill the profile. Ligatures repaired; tells you if the PDF is scanned. |
 | `scripts/new-client.sh "Name" [YYYY-MM-DD]` | Scaffolds a per-person workspace so nothing gets mixed up |
 | `scripts/pre-publish-check.sh` | Blocks publishing leaked PII, secrets, or tracked binaries *(if you are hacking on this repo)* |
 
@@ -417,6 +442,7 @@ skills, `AGENTS.md` — works natively on Windows.
 skills/                                   five skills: intake, analyse, update, write, audit
 context/
   candidate-profile.template.md           the form you fill in
+inbox/                                    drop an existing resume PDF here (gitignored)
 .claude/skills                            → linked to skills/ for Claude Code
 .agents/skills                            → linked to skills/ for opencode/Cursor/Antigravity/Codex
 CLAUDE.md                                 Claude Code entry point (imports AGENTS.md)
@@ -430,6 +456,7 @@ scripts/
   render.ps1                              HTML → PDF on native Windows (PowerShell)
   check-setup.sh                          report missing browser/Python/pypdf, with fixes
   verify_pdf.py                           the five extraction checks. pypdf only dependency
+  extract_resume.py                       read an existing resume PDF into text, for intake
   new-client.sh                           scaffold a per-person workspace
   pre-publish-check.sh                    leak/PII gate before pushing
   denylist.txt                            committed generic patterns

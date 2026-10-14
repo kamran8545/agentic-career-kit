@@ -15,6 +15,12 @@ context/candidate-profile.md
 /out/
 /my-profile.md
 
+# The resume-drop folder. A pasted resume PDF is real personal data, so ignore
+# everything in it and keep only the two tracked placeholders that describe it.
+/inbox/*
+!/inbox/README.md
+!/inbox/.gitkeep
+
 # Personal denylist. Contains the repo owner's real names, clients and employers,
 # which is precisely why it must never be published.
 scripts/denylist.local.txt

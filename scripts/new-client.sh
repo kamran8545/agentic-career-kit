@@ -60,6 +60,9 @@ cat > "$DEST/README.md" <<EOF
 # ${RAW} — workspace
 
 1. Send \`intake/${SLUG}-intake.md\` to the client. They fill it in and return it.
+   (Or, if they have an existing resume, have them put the **PDF** in
+   \`intake/\` — your AI agent can read it and pre-fill the profile, then ask
+   only the remaining questions.)
 2. Copy their returned file over \`profile/candidate-profile.md\`.
 3. Build the master CV:
    \`scripts/render.sh clients/.../out/Master-CV.html clients/.../out/Master-CV.pdf\`
@@ -67,10 +70,20 @@ cat > "$DEST/README.md" <<EOF
 5. Per job: create \`out/applications/<Company>-<role>-<date>-CV.html\` from
    Master-CV.html, tailor it, render, verify, write the matching \`-CL.md\`.
 6. Record the verification output in \`report/\` and send it with the PDF.
+
+To import the resume PDF directly:
+   \`scripts/extract_resume.py intake/<file>.pdf --out intake/<file>.txt\`
 EOF
 
 cat > "$DEST/intake/INSTRUCTIONS-TO-CLIENT.md" <<'EOF'
 # Before you start
+
+**Already have a resume?** You can skip most of this. Put a PDF of your current
+resume in this folder and tell whoever is building your CV — it can be read and
+pre-filled, and you will only be asked what it does not cover. The PDF must
+contain real text, not a scan or a photo.
+
+Otherwise, fill in the file next to this one:
 
 1. Open the file next to this one in any **plain text editor**
    (TextEdit, VS Code, Notepad). Do **not** use Microsoft Word or Google Docs —

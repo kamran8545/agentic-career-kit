@@ -12,8 +12,10 @@ Turns a candidate profile into a verified, ATS-safe PDF.
 0. **No profile yet?** If `context/candidate-profile.md` (or
    `profile/candidate-profile.md`) is missing or still full of `{{...}}`
    placeholders, run the **`candidate-intake`** skill first — it interviews the
-   user one question at a time and writes the profile. Never invent a profile
-   just to have something to render.
+   user one question at a time and writes the profile. If the user has an
+   existing resume, that skill will also read a PDF dropped in `inbox/` (via
+   `scripts/extract_resume.py`) and pre-fill the profile from it. Never invent a
+   profile just to have something to render.
 1. **Read the source of truth first.** The candidate's profile
    (`profile/candidate-profile.md`, or `context/candidate-profile.md`
    at the repo root) and the HTML being edited. Never edit blind.
@@ -33,6 +35,7 @@ Turns a candidate profile into a verified, ATS-safe PDF.
 | ------- | ---- |
 | Blank template | `templates/resume.template.html` |
 | Candidate data | `profile/candidate-profile.md` |
+| Existing resume to import | `inbox/<file>.pdf` → `scripts/extract_resume.py` |
 | Per-job output | `out/applications/<Company>-<role>-<YYYY-MM-DD>-CV.html` + `.pdf` |
 | A fresh client workspace | `scripts/new-client.sh "Client Name"` |
 
